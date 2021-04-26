@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>SageMaker Autopilot on Amazon SageMaker Studio Hands-on Lab</title>
+    <link>/autopilot/</link>
+    <description>Recent content in SageMaker Autopilot on Amazon SageMaker Studio Hands-on Lab</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ko-KR</language><atom:link href="/autopilot/index.xml" rel="self" type="application/rss+xml" />
+  </channel>
+</rss>
