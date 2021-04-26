@@ -1,0 +1,141 @@
+[
+{
+	"uri": "/",
+	"title": "Home",
+	"tags": [],
+	"description": "",
+	"content": "AMAZON SAGEMAKER STUDIO HANDS ON LAB  What is Amazon SageMaker Studio? Amazon SageMaker Studio is the first fully integrated development environment (IDE) for machine learning that provides a single, web-based visual interface to perform all the steps for ML development. Amazon SageMaker provides every developer and data scientist with the ability to prepare build, train, and deploy machine learning (ML) models quickly. SageMaker removes the heavy lifting from each step of the machine learning process to make it easier to develop high quality models. SageMaker provides all of the components used for machine learning in a single toolset so models get to production faster with much less effort and at lower cost.  Overview of the labs On this tutorial, you learn how to use Amazon SageMaker Studio, SageMaker Data Wrangler, and SageMaker Studio Notebook to prepare data, build and train a machine learning (ML) model.\nThis takes about 1 hour and contains:\n Prerequisite SageMaker Data Wrangler SageMaker Studio Notebook Clean up  Every step is connected to each other. So please follow the tutorial step by step.\n  © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/prerequisite/",
+	"title": "Prerequisite",
+	"tags": [],
+	"description": "",
+	"content": "Download dataset Billions of banking transactions occur every year. Very few of these are fraud and managed, but if the transaction isn\u0026rsquo;t well detected, the damage is huge. The cost of damage is enormous for customers and businesses, and for financial regulators who need to validate transactions.\nIn this lab, you will handle Bank Fraud Detection dataset to make ML model which detect fraud transaction automatically. The dataset simulates mobile money transactions based on a sample of real transactions extracted from one month of financial logs from a mobile money service implemented in an African country. You can also download it from Kaggle.\nIn here, edited the dataset more easy to conduct this lab. Download the following csv file.\n  Attachments   banking_fraud.csv  (193 ko)     Headers explanation  type - CASH-IN, CASH-OUT, DEBIT, PAYMENT and TRANSFER. amount - amount of the transaction in local currency. nameOrig - customer who started the transaction oldbalanceOrg - initial balance before the transaction newbalanceOrig - new balance after the transaction nameDest - customer who is the recipient of the transaction oldbalanceDest - initial balance recipient before the transaction. Note that there is not information for customers that start with M (Merchants). newbalanceDest - new balance recipient after the transaction. Note that there is not information for customers that start with M (Merchants). isFraud - This is the transactions made by the fraudulent agents inside the simulation. In this specific dataset the fraudulent behavior of the agents aims to profit by taking control or customers accounts and try to empty the funds by transferring to another account and then cashing out of the system.   © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/prerequisite/s3/",
+	"title": "Create Amazon S3 bucket",
+	"tags": [],
+	"description": "",
+	"content": "SageMaker use Amazon S3 as storing data and models. You will create S3 bucket for this purpose and use Asia Pacific (Seoul) ap-northeast-2 region in this lab.\nIn the AWS Management Console, search for Amazon S3.  Create S3 bucket   Click Create bucket button in the bucket list page.   Set Bucket name and AWS Region like following. Then click Create bucket button on the bottom of this page.\n   Bucket name: sagemaker-[acountId] (Change to your own account ID) AWS Region: Asia Pacific (Seoul) ap-northeast-2   S3 Bucket name must be unique for all accounts.\n  Upload file to S3   Go to the bucket you created. And upload banking_fraud.csv file. You can also drag and drop the file.   Now you can see the file is uploaded.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/prerequisite/studio/",
+	"title": "Launch SageMaker Studio",
+	"tags": [],
+	"description": "",
+	"content": "In the AWS Management Console, search for Amazon SageMaker.  Select region To run various features on Amazon SageMaker Studio, you have to launch it in the same region as your S3 buckect.\n Select Asia Pacific (Seoul) ap-northeast-2 region for this lab. And click Amazon SageMaker Studio tab in the left panel.  Launch Amazon SageMaker Studio If you click sagemaker studio at the first time, you will configure some settings about SageMaker Studio. SageMaker Studio requires permissions to access other AWS services. Therefore, you must select execution role which is attached AmazonSageMakerFullAccess policy.\n  You can change the user name but will use default name in here. And you might don\u0026rsquo;t have any execution role. In the Execution role, select Create a new role.   Leave it to the default settings and click Create role button.   Now you can see the role is created. Then click Submit button.   When the Status changes from Pending to Ready, the default user is created automatically. It will take about 3-5 minutes.   Click Open Studio button to access SageMaker Studio. It will take 1-2 minutes to open.   Finally you can use SageMaker Studio.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/wrangler/",
+	"title": "SageMaker Data Wrangler",
+	"tags": [],
+	"description": "",
+	"content": "Amazon SageMaker Data Wrangler (Data Wrangler) is a feature of SageMaker Studio that provides an end-to-end solution to import, prepare, transform, featurize, and analyze data. You can integrate a Data Wrangler data flow into your machine learning (ML) workflows to simplify and streamline data pre-processing and feature engineering using little to no coding.\n Access Data Wrangler  When Studio opens, select New data flow card under ML tasks and components.   1-1. Or click last icon on the left panel and select Data Wrangler. Then click New flow button. Now a new folder is created in Studio with a .flow file inside, which contains your data flow. The .flow file automatically opens in Studio. Wait for data wrangler to be connected to engine.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/wrangler/import/",
+	"title": "Import data",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will import dataset to Data Wrangler.\n  Rename the untitled.flow to banking_fraud .flow using right click.   Select Amazon S3 to import banking fraud dataset.   Click your S3 bucket name that we made in Prerequisite step.   And select banking_fraud.csv file then click Import dataset button on the Details panel. You can see some of your data in Preview panel.   The tab moved to Prepare tab. In this section, your dataset appears in the data flow.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/wrangler/prepare/",
+	"title": "Prepare data",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will use Data Wrangler to transform the dataset.\n Edit data types   Click the + icon next to the Data types step in your data flow and choose Edit data types.   You can see the type of each columns and can change it immediately by selecting the types. But all types are correct, go back to data flow.    Transform data  Click the + icon and select Add transform.   Next, convert the dataset. nameOrig and nameDest columns are unnecessary to make ML model. Therefore, delete those columns. Also, encode the type column - CASH-IN, CASH-OUT, DEBIT, PAYMENT and TRANSFER.\n Choose Mange columns and confirm that Drop column is selected in Transform section. Then choose nameOrig under Column to drop. Click Preview button.   You can see nameOrig column is deleted. Then Add button will be activate. Click the Add button to apply the function.   You must click Preview and Add button to apply the transform functions.\n Follow the steps.   Mange columns \u0026gt; Transform: Drop column \u0026gt; Column to drop: nameDest \u0026gt; Preview \u0026gt; Add Endcode categorical \u0026gt; Transform: One-hot encode \u0026gt; Input column: type \u0026gt; Invalid handling strategy: Keep \u0026gt; Output sytle: Columns \u0026gt; Preview \u0026gt; Add   Encoded columns are added after isFraud column. Then go back to data flow to analyze the data.   The new Steps step created in your data flow.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/wrangler/analyze/",
+	"title": "Analyze data",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will analysis transformed data with visualization.\nClick the + icon next to the Steps and select Add analysis.  Histogram Use histograms to see the counts of values for a specific feature. You can inspect for each columns.\n  Select Histogram on Analysis type and rename to histogram. Set X axis to type_PAYMENT then click Preview button.   Click Create button next to preview button to save the histogram.    Table summary Use the Table Summary analysis to quickly summarize your data including count, min, max, and etc.\n  To create new one, click Create new analysis button on the top.   Select Table Summary on Analysis type and rename to summary. Then click Preview button. You can see table summary reports for each column.    Quick model Use the Quick Model visualization to quickly evaluate your data and produce importance scores for each features. This indicates feature importance and evaluation score by training RandomForest algorithm - Classification: F1 score, Regression: Mean squared error (MSE).\n  Select Quick Model on Analysis type and rename to model. Set Label to isFraud then click Preview button.   You can see the F1 score is 0.972 and oldbalanceOrg is most important column on this model. From now on, select features to make ML model based on this result.\n   © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/wrangler/export/",
+	"title": "Export data",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will export your transformed data. Data Wrnagler easily integrates that data flow into your data processing pipeline.\n Export data flow   Choose the Export tab and do right click on Steps icon. Select the last step in your data flow.   Export step button will appear. Click the button and choose Data Wrangler Job.   Then a Jupyter Notebook is automatically created to run a SageMaker processing job to execute your data flow. Choose Python 3 (Data Science) for the Kernel to start this notebook.   When the kernel starts, change following variables under Output: S3 settings part.\n   bucket = \u0026ldquo;Change the s3 bucket name which you made.\u0026quot; (e.g. \u0026ldquo;sagemaker-accountId\u0026rdquo;)    Run cells until Job Status \u0026amp; S3 Output Location part. After the processing job fininshed, check the result. This will take about 10 mins.   To see the transformed result, run (Optional) Load Processed Data into Pandas part.   Go to S3. And confirm that transformed data made as csv file in your S3 bucket.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/notebook/",
+	"title": "SageMaker Studio Notebook",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will train machine learning model using data that you pre-processed.\n Download jupyter notebook   Choose File tab on the top panel and go to New. Select Termial.   Copy following command and run on terminal. You get banking-fraud-dectection folder.\n  git clone https://github.com/jjk-dev/sagemaker-studio-banking-fraud.git\r © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/notebook/randomforest/",
+	"title": "Train with RandomForest",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you will train machine learning model using data that you pre-processed.\n Copy S3 bucket and file name Copy s3 bucket name with Copy S3 URI button. Also copy the file name.  Run jupyter notebook   Go to sagemaker-studio-banking-fraud folder \u0026gt; 1. Banking-fraud-with-RandomForest.ipynb.\n  Replace S3 bucket name and file name with yours.\n  If you click Copy S3 URI button, the format would be s3://sagemaker-000../\u0026hellip;/\u0026hellip;/default/. You have to remove s3:// in the front and / in the end. Make the bucket name to sagemaker-000../\u0026hellip;/\u0026hellip;/default.\n Run jupyter notebook with Shift+Enter. And see the result.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/notebook/xgboost/",
+	"title": "Train, Tune and Deploy with XGBoost",
+	"tags": [],
+	"description": "",
+	"content": "In this lab, you trains, tunes, and deploys a machine learning model using XGBoost.\n Copy S3 bucket and file name Copy s3 bucket name with Copy S3 URL button. Also copy the file name.  Run jupyter notebook   Go to sagemaker-studio-banking-fraud folder \u0026gt; 2. Banking-fraud-with-XGBoost.ipynb.\n  Replace Student number, S3 bucket name and file name with yours.\n   For example, student_number = \u0026lsquo;2021000000\u0026rsquo; bucket = \u0026lsquo;sagemaker-000000000000\u0026rsquo; input_data_bucket = \u0026lsquo;sagemaker-000../…/…/default\u0026rsquo; file = \u0026lsquo;part-00000-edb8e4ca\u0026hellip;.csv\u0026rsquo;  If you click Copy S3 URI button, the format would be s3://sagemaker-000../…/…/default/. You have to remove s3:// in the front and / in the end. Make the bucket name to sagemaker-000../\u0026hellip;/\u0026hellip;/default.\n  Run jupyter notebook with Shift+Enter. Hosting to create Endpoint takes 8-10 mins.   After hosting is fininshed, check performance of model through inference.   Delete Endpoint by removing the annotation in last cell.   Important: Once you done with this notebook, run the Clean up cell to remove the hosted endpoint to avoid any charges.\n  © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/autopilot/",
+	"title": "SageMaker Autopilot",
+	"tags": [],
+	"description": "",
+	"content": "Amazon SageMaker Autopilot automatically builds, trains, and tunes the best machine learning models based on your data, while allowing you to maintain full control and visibility. This eliminates the heavy lifting of building ML models, and helps you automatically build, train, and tune the best ML model based on your data.\n Access Autopilot   On the left panel, click last icon and select Experiments and trials. Then click Create Experiment button.   Fill the blanks like under. Then click Create Experiment button.\n   Experiment name: banking-fraud-autopilot CONNECT YOUR DATA: Select Find S3 bucket S3 bucket name: Select the s3 bucket name which you made. (e.g. \u0026ldquo;sagemaker-accountId\u0026rdquo;) Dataset file name: banking_fraud.csv Target: isFraud Output data location (S3 bucket): Select Enter S3 bucket location S3 bucket address: Put the s3 bucket name which you made. And put /output in the end. (e.g. s3://sagemaker-accountId/output) Select the machine learning problem type: Binary classification Objective metric: F1 Do you want to run a complete experiment?: No, run a pilot to create a notebook with candidate definitions  In Do you want to run a complete experiment? section, if you select Yes, following pipeline automatically operates. However, this generates 10 candidate models and performs 250 times of hyperparameter optimzation. This takes about 1.5 hour to 2 hours, so it is not fit on this hands on lab. Therefore, you will change some variables.  You can see the Autopilot is working. This will take under 5 minutes.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/autopilot/data/",
+	"title": "Explore data",
+	"tags": [],
+	"description": "",
+	"content": "A notebook is produced during the analysis phase of the AutoML job that helps you identify problems in your dataset. It identifies specific areas for investigation in order to help you identify upstream problems with your data that may result in a suboptimal model.\n   Click Open data exploration notebook button to see notebook.   Look into this notebook and see automatically executed EDA (Exploratory Data Analysis) result.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/autopilot/candidate/",
+	"title": "Generate candidate",
+	"tags": [],
+	"description": "",
+	"content": "The candidate defintion notebook contains each suggested preprocessing step, algorithm, and hyperparameter ranges. If you chose just to produce the notebook and not to run the AutoML job, you can then decide which candidates are to be trained and tuned. They optimize automatically and a final, best candidate is identified.\n Import notebook   Click Open candidate generation notebook button to see notebook.   To copy this notebook, click Import notebook button on the upper right.   Select Python 3 (Data Science) kernel and click Select button.    Execute pipelines   You will use dpp0-xgboost and dpp9-mlp cells. Can find below Generated Candidates section.   Delete all other cells except those until dpp9-mlp. Click Edit \u0026gt; Delete Cells or scissors icon on each cell.   In Executing the Candidate Piplines section, chanage the number of parallel_jobs as 2 like. This part will take about 10 mins.\n   parallel_jobs=2   Go to Create Multi-Algorithm Tuner section. Modify the values as follows.   max_parallel_jobs=2 max_jobs=6   Run until Run Multi-Algorithm Tuning cell. You can see the process and this takes about 10 minutes. (Above Model Selection and Deployment part.)    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/experiment/",
+	"title": "SageMaker Experiment",
+	"tags": [],
+	"description": "",
+	"content": "SageMaker Experiments automatically tracks the inputs, parameters, configurations, and results of your iterations as trials. Amazon SageMaker Autopilot includes SageMaker Experiment, so you can try it easily.\n   In the left panel - Experimnets and trials, right click on Unassigned trial components and click Open in trial component list.\n  Select 6 training jobs that recetly created. Use Shift + Left click for multiple selections. And click Add chart button.\n  If you click setting icon, you can see f1 score and other metrics.  Visualize the Traial Componets as a scatter plot. Click Add Chart button to make charts. Set following values.   Data type: Summary statistics Chart type: Scatter plot X-axis: validation:f1_min Y-axis: ObjectiveMetric_max Color: trialComponentName   You generated small amount of trials, so just one component visualized. If you create many training job, more items will show.  Visualize the Traial Componets as a histogram bar. Easy to identify the range of hyperparameters tunning result on validation data. Click Add Chart button and set following values.   Data type: Time series Chart type: Histogram X-axis dimension: Time X-axis aggregation: 1-minute X-axis:: ObjectiveMetric_max    To see more details about candidate model, go back to Trial Components List. And left click one of the training jobs then click Open in trial details.   Select Metrics and Parameters tab. More detailed information such as f1 score, used algorithm, and other hyperparemeter values show in the model.    © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/cleanup/",
+	"title": "Clean up",
+	"tags": [],
+	"description": "",
+	"content": "In this step, you terminate the resources you used in this lab.\nImportant: Terminating resources that are not actively being used reduces costs and is a best practice. Not terminating your resources will result in charges to your account.\n  Stop running instances Click Stop icon on the left panel. You can see running instances and sessions. Click X icon next to the following sections. And then choose Shut Down All button to terminate apps.\n Running instances Kernel sessions Terminal sessions   © 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.\n"
+},
+{
+	"uri": "/categories/",
+	"title": "Categories",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/tags/",
+	"title": "Tags",
+	"tags": [],
+	"description": "",
+	"content": ""
+},
+{
+	"uri": "/credits/",
+	"title": "크레딧",
+	"tags": [],
+	"description": "",
+	"content": "패키지와 라이브러리  mermaid - generation of diagram and flowchart from text in a similar manner as markdown font awesome - the iconic font and CSS framework jQuery - The Write Less, Do More, JavaScript Library lunr - Lunr enables you to provide a great search experience without the need for external, server-side, search services\u0026hellip; horsey - Progressive and customizable autocomplete component clipboard.js - copy text to clipboard highlight.js - Javascript syntax highlighter modernizr - A JavaScript toolkit that allows web developers to use new CSS3 and HTML5 features while maintaining a fine level of control over browsers that don\u0026rsquo;t support  도구  Netlify - Continuous deployement and hosting of this documentation Hugo  "
+}]

@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="ko" class="js csstransforms3d">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="Hugo 0.78.1" />
+    <meta name="description" content="Amazon SageMaker Studio Hands-on Lab">
+<meta name="author" content="Jiyeon Kang">
+
+    <link rel="icon" href="/images/favicon.png" type="image/png">
+
+    <title>Home :: Amazon SageMaker Studio Hands-on Lab</title>
+
+    
+    <link href="/css/nucleus.css?1619464732" rel="stylesheet">
+    <link href="/css/fontawesome-all.min.css?1619464732" rel="stylesheet">
+    <link href="/css/hybrid.css?1619464732" rel="stylesheet">
+    <link href="/css/featherlight.min.css?1619464732" rel="stylesheet">
+    <link href="/css/perfect-scrollbar.min.css?1619464732" rel="stylesheet">
+    <link href="/css/auto-complete.css?1619464732" rel="stylesheet">
+    <link href="/css/atom-one-dark-reasonable.css?1619464732" rel="stylesheet">
+    <link href="/css/theme.css?1619464732" rel="stylesheet">
+    <link href="/css/hugo-theme.css?1619464732" rel="stylesheet">
+    
+    <link href="/css/theme-aws.css?1619464732" rel="stylesheet">
+    
+    
+
+    <script src="/js/jquery-3.3.1.min.js?1619464732"></script>
+
+    <style>
+      :root #header + #content > #left > #rlblock_left{
+          display:none !important;
+      }
+      
+    </style>
+    
+  </head>
+  <body class="" data-url="/">
+    <nav id="sidebar" class="showVisitedLinks">
+
+
+
+  <div id="header-wrapper">
+    <div id="header">
+      <a id="logo" href="/">
+	<img src="/images/logo.png" height="70px"/>
+</a>
+
+    </div>
+    
+        <div class="searchbox">
+    <label for="search-by"><i class="fas fa-search"></i></label>
+    <input data-search-input id="search-by" type="search" placeholder="Search...">
+    <span data-search-clear=""><i class="fas fa-times"></i></span>
+</div>
+
+<script type="text/javascript" src="/js/lunr.min.js?1619464732"></script>
+<script type="text/javascript" src="/js/auto-complete.js?1619464732"></script>
+<script type="text/javascript">
+    
+        var baseurl = "\/";
+    
+</script>
+<script type="text/javascript" src="/js/search.js?1619464732"></script>
+
+    
+  </div>
+
+    <div class="highlightable">
+    <ul class="topics">
+
+        
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/prerequisite/" title="Prerequisite" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prerequisite/">
+          <b>1. </b>Prerequisite
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/prerequisite/s3/" title="Create Amazon S3 bucket" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prerequisite/s3/">
+          <b>1-1. </b>Create Amazon S3 bucket
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/prerequisite/studio/" title="Launch SageMaker Studio" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/prerequisite/studio/">
+          <b>1-2. </b>Launch SageMaker Studio
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/wrangler/" title="SageMaker Data Wrangler" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/wrangler/">
+          <b>2. </b>SageMaker Data Wrangler
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/wrangler/import/" title="Import data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/wrangler/import/">
+          <b>2-1. </b>Import data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/wrangler/prepare/" title="Prepare data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/wrangler/prepare/">
+          <b>2-2. </b>Prepare data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/wrangler/analyze/" title="Analyze data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/wrangler/analyze/">
+          <b>2-2. </b>Analyze data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/wrangler/export/" title="Export data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/wrangler/export/">
+          <b>2-3. </b>Export data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/notebook/" title="SageMaker Studio Notebook" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notebook/">
+          <b>3. </b>SageMaker Studio Notebook
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/notebook/randomforest/" title="Train with RandomForest" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notebook/randomforest/">
+          <b>3-1. </b>Train with RandomForest
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/notebook/xgboost/" title="Train, Tune and Deploy with XGBoost" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/notebook/xgboost/">
+          <b>3-2. </b>Train, Tune and Deploy with XGBoost
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/autopilot/" title="SageMaker Autopilot" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/autopilot/">
+          <b>4. </b>SageMaker Autopilot
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+      
+        <ul>
+          
+          
+            
+          
+          
+          
+        
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/autopilot/data/" title="Explore data" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/autopilot/data/">
+          <b>4-1. </b>Explore data
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+            
+            
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/autopilot/candidate/" title="Generate candidate" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/autopilot/candidate/">
+          <b>4-2. </b>Generate candidate
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+            
+          
+        
+        </ul>
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/experiment/" title="SageMaker Experiment" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/experiment/">
+          <b>5. </b>SageMaker Experiment
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+          
+
+
+
+
+ 
+  
+    
+    <li data-nav-id="/cleanup/" title="Clean up" class="dd-item 
+        
+        
+        
+        ">
+      <a href="/cleanup/">
+          <b>6. </b>Clean up
+          
+            <i class="fas fa-check read-icon"></i>
+          
+      </a>
+      
+              
+    </li>
+  
+ 
+
+          
+         
+    </ul>
+
+    
+    
+      <section id="shortcuts">
+        <h3>More</h3>
+        <ul>
+          
+              <li> 
+                  <a class="padding" href="https://docs.aws.amazon.com/sagemaker/latest/dg/whatis.html"><i class='fas fa-fw fa-bookmark'></i> Resources</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/"><i class='fab fa-fw fa-aws'></i> AWS Homepage</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://aws.amazon.com/ko/blogs/korea/"><i class='fas fa-fw fa-blog'></i> AWS Korea Blog</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://www.facebook.com/groups/awskrug/"><i class='fab fa-fw fa-facebook-square'></i> Facebook</a>
+              </li>
+          
+              <li> 
+                  <a class="padding" href="https://github.com/jjk-dev/"><i class='fab fa-fw fa-github'></i> GitHub Repo</a>
+              </li>
+          
+        </ul>
+      </section>
+    
+
+    
+    <section id="prefooter">
+      <hr/>
+      <ul>
+      
+      
+      
+        <li><a class="padding" href="#" data-clear-history-toggle=""><i class="fas fa-history fa-fw"></i> Clear History</a></li>
+      
+      </ul>
+    </section>
+    
+    <section id="footer">
+      © 2021 Amazon Web Services, Inc. or its Affiliates. All rights reserved.
+
+    </section>
+  </div>
+</nav>
+
+
+
+
+        <section id="body">
+        <div id="overlay"></div>
+        <div class="padding highlightable">
+              
+        <div id="head-tags">
+        
+        </div>
+        
+          <div id="chapter">
+        
+        <div id="body-inner">
+          
+
+        
+
+<span id="sidebar-toggle-span">
+<a href="#" id="sidebar-toggle" data-sidebar-toggle=""><i class="fas fa-bars"></i> navigation</a>
+</span>
+
+ 
+<h1 id="amazon-sagemaker-studio-hands-on-lab">AMAZON SAGEMAKER STUDIO HANDS ON LAB</h1>
+<hr>
+<h2 id="what-is-amazon-sagemaker-studio">What is Amazon SageMaker Studio?</h2>
+<p>Amazon SageMaker Studio is the first fully integrated development environment (IDE) for machine learning that provides a single, web-based visual interface to perform all the steps for ML development.
+<img src="./images/working-process.png" alt="working-process"></p>
+<p>Amazon SageMaker provides every developer and data scientist with the ability to prepare build, train, and deploy machine learning (ML) models quickly. SageMaker removes the heavy lifting from each step of the machine learning process to make it easier to develop high quality models. SageMaker provides all of the components used for machine learning in a single toolset so models get to production faster with much less effort and at lower cost.
+<img src="./images/sagemaker-features.png" alt="features"></p>
+<hr>
+<h2 id="overview-of-the-labs">Overview of the labs</h2>
+<p>On this tutorial, you learn how to use <strong>Amazon SageMaker Studio, SageMaker Data Wrangler, and SageMaker Studio Notebook</strong> to prepare data, build and train a machine learning (ML) model.</p>
+<p>This takes about 1 hour and contains:</p>
+<ol>
+<li><a href="prerequisite">Prerequisite</a></li>
+<li><a href="wrangler">SageMaker Data Wrangler</a></li>
+<li><a href="notebook">SageMaker Studio Notebook</a></li>
+<li><a href="cleanup">Clean up</a></li>
+</ol>
+
+<div class="notices info" ><p>Every step is connected to each other. So please follow the tutorial step by step.</p>
+</div>
+
+<hr>
+<p>© 2021 Amazon Web Services, Inc. 또는 자회사, All rights reserved.</p>
+	
+  
+        
+            </div> 
+        
+        </div> 
+        
+
+      </div>
+
+    <div id="navigation">
+        
+        
+        
+        
+            
+            
+                
+                    
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                        
+                        
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                        
+                    
+                    
+
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+                        
+            
+            
+                
+                    
+                
+                
+
+                    
+                    
+                    
+
+                    
+            
+        
+                    
+            
+        
+        
+        
+
+
+	 
+	 
+		
+		
+			<a class="nav nav-next" href="/prerequisite/" title="Prerequisite" style="margin-right: 0px;"><i class="fa fa-chevron-right"></i></a>
+		
+	
+    </div>
+
+    </section>
+    
+    <div style="left: -1000px; overflow: scroll; position: absolute; top: -1000px; border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;">
+      <div style="border: none; box-sizing: content-box; height: 200px; margin: 0px; padding: 0px; width: 200px;"></div>
+    </div>
+    <script src="/js/clipboard.min.js?1619464732"></script>
+    <script src="/js/perfect-scrollbar.min.js?1619464732"></script>
+    <script src="/js/perfect-scrollbar.jquery.min.js?1619464732"></script>
+    <script src="/js/jquery.sticky.js?1619464732"></script>
+    <script src="/js/featherlight.min.js?1619464732"></script>
+    <script src="/js/highlight.pack.js?1619464732"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/js/modernizr.custom-3.6.0.js?1619464732"></script>
+    <script src="/js/learn.js?1619464732"></script>
+    <script src="/js/hugo-learn.js?1619464732"></script>
+
+    <link href="/mermaid/mermaid.css?1619464732" rel="stylesheet" />
+    <script src="/mermaid/mermaid.js?1619464732"></script>
+    <script>
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+    
+  </body>
+</html>
+
