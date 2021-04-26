@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2021-03-26T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/prerequisite/</loc>
+  </url>
+  
+  <url>
+    <loc>/prerequisite/s3/</loc>
+  </url>
+  
+  <url>
+    <loc>/prerequisite/studio/</loc>
+  </url>
+  
+  <url>
+    <loc>/wrangler/</loc>
+  </url>
+  
+  <url>
+    <loc>/wrangler/import/</loc>
+  </url>
+  
+  <url>
+    <loc>/wrangler/prepare/</loc>
+  </url>
+  
+  <url>
+    <loc>/wrangler/analyze/</loc>
+  </url>
+  
+  <url>
+    <loc>/wrangler/export/</loc>
+  </url>
+  
+  <url>
+    <loc>/notebook/</loc>
+  </url>
+  
+  <url>
+    <loc>/notebook/randomforest/</loc>
+  </url>
+  
+  <url>
+    <loc>/notebook/xgboost/</loc>
+  </url>
+  
+  <url>
+    <loc>/autopilot/</loc>
+  </url>
+  
+  <url>
+    <loc>/autopilot/data/</loc>
+  </url>
+  
+  <url>
+    <loc>/autopilot/candidate/</loc>
+  </url>
+  
+  <url>
+    <loc>/experiment/</loc>
+  </url>
+  
+  <url>
+    <loc>/cleanup/</loc>
+  </url>
+  
+  <url>
+    <loc>/categories/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+  </url>
+  
+  <url>
+    <loc>/credits/</loc>
+  </url>
+  
+</urlset>
